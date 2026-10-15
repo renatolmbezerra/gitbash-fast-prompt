@@ -104,7 +104,9 @@ update_prompt() {
 
 # Carregar variáveis do .env automaticamente ao abrir o terminal
 if [ -f .env ]; then
-    export $(grep -v '^#' .env | xargs)
+    set -a
+    source <(grep -v '^\s*#' .env | tr -d '\r')
+    set +a
 fi
 
 PROMPT_COMMAND=update_prompt
